@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上海地区入职指引 - 智能助手</title>
+    <!-- 内置 favicon，避免 /favicon.ico 404 -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤖</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            height: 90vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 头部区域 */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        /* 进度条 */
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.3);
+            height: 8px;
+            border-radius: 4px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* 聊天区域 */
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        /* 消息气泡 */
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.bot {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .message.user {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        /* 步骤卡片 */
+        .step-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 10px 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .step-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .step-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .step-content {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        .step-content strong {
+            color: #333;
+        }
+
+        .step-content a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .step-content a:hover {
+            text-decoration: underline;
+        }
+
+        .check-button {
+            margin-top: 12px;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .check-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .check-button.completed {
+            background: #4caf50;
+            cursor: default;
+        }
+
+        .check-button.completed:hover {
+            transform: none;
+        }
+
+        /* 选项按钮 */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option-button {
+            background: white;
+            border: 2px solid #667eea;
+            color: #667eea;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .option-button:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* 输入区域 */
+        .input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-area input:focus {
+            border-color: #667eea;
+        }
+
+        .input-area button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .input-area button:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+
+        /* 加载动画 */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 10px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: #999;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 滚动条样式 */
+        .chat-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>🤖 上海地区入职指引助手</h1>
+            <p>让我帮助您完成入职流程</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- 聊天区域 -->
+        <div class="chat-area" id="chatArea">
+            <!-- 消息将在这里动态添加 -->
+        </div>
+
+        <!-- 输入区域 -->
+        <div class="input-area">
+            <input type="text" id="userInput" placeholder="输入消息或选择上方选项..." />
+            <button onclick="sendMessage()">发送</button>
+        </div>
+    </div>
+
+    <script>
+        // ========== 数据结构 ==========
+        
+        // 入职步骤数据（根据图片中的内容整理）
+        const onboardingSteps = [
+            {
+                id: 1,
+                title: "电脑工牌领取，并机密码与网络",
+                content: `📋 电脑开机初始密码：ctw123123
+
+🌐 公司网络（含VPN）：
+   Name: CTW SH
+   PW: Bac0nYasa1
+
+💡 重要提示：请妥善保管您的密码，不要分享给他人。`
+            },
+            {
+                id: 2,
+                title: "Passkey绑定",
+                content: `🔐 Passkey绑定步骤：
+   1. 打开某面ID系统（内部dR系统）
+   2. 进入passkey绑定流程
+   3. 输入邮箱、G123ID、邮箱验证码
+
+📌 Passkey说明：🔒 passkey绑定`
+            },
+            {
+                id: 3,
+                title: "P卡统资料填写",
+                content: `📝 需要填写的资料：
+   • 现场身份证
+   • 开户行
+   • 银行卡号
+   • 首次工作时间
+   • 社账服号
+   • 公积金账号
+
+⚠️ 请准备好以上信息后进行填写。`
+            },
+            {
+                id: 4,
+                title: "A系统（任务管理系统）",
+                content: `📊 A系统说明：
+   • 任务管理系统
+   • 工作期间所有任务都在该系统记录
+   • 请保持可登录状态
+
+🔑 A系统介绍S里卡：
+   • 区分美术和非美术
+   • 美术：请找负责PM或leader获取卡
+   • 非美术：可自行创建或leader要卡`
+            },
+            {
+                id: 5,
+                title: "W（浏览文档系统）",
+                content: `📚 W系统（浏览文档系统）：
+   链接：https://w.g123.jp/
+
+📂 文档需要根据不同部门开通不同权限：
+   • tech —— Tech
+   • creative- Creative
+   • operation- Operation
+   • managment-
+
+💡 根据您的部门申请相应权限。`
+            },
+            {
+                id: 6,
+                title: "钉钉进组",
+                content: `💬 钉钉进组步骤：
+   1. 负责hr会邀请你进入群组
+   2. 请同意进入
+   3. 名字格式：中文-拼音
+
+🔗 邀请链接：
+https://wx-in-i.dingtalk.com/invite
+page/weixin.html?
+bizSource=____source____&corpId=ding0387e489e42436f835c2f4657eb6378
+f&inviteCode=UtCHSk576JzW4h&dtaction=os
+
+📱 QQ0：请提前准备好QQ号。`
+            },
+            {
+                id: 7,
+                title: "员工基本信息收集",
+                content: `📋 信息收集表单：
+https://alidocs.dingtalk.com/notable/share/form/v01J9LnW6jnE5pZWlvD_dv19yqvsgs3oeb
+p3pcjys_1qX0
+
+📝 请如实填写您的基本信息。`
+            },
+            {
+                id: 8,
+                title: "点餐系统",
+                content: `🍱 点餐系统使用指南：
+
+步骤：
+1. 微信搜索：*显点餐*公众
+2. 点击*开始点餐*
+3. 输入餐号码，登录后就可以开始预餐
+
+⚠️ 重要信息：
+   • 姓名：个人手机号
+   • 初始密码：yidanc66688
+
+💡 首次登录后请及时修改密码。`
+            },
+            {
+                id: 9,
+                title: "员工手册、入职资料和电子劳动合同签署",
+                content: `📄 最后步骤 - 文件签署：
+
+1️⃣ 请将入职材料打包发送至 HR 邮箱
+
+2️⃣ 员工手册获取地址：
+https://w.g123.jp/doc/ws4iua1t13lkzjjt6xmiyihow-QCYVwSBAUZ
+
+3️⃣ 劳动合同以邮件形式完成
+   请注意查收邮件并完成电子签名
+
+✅ 完成后您的入职流程就全部完成了！`
+            }
+        ];
+
+        // ========== 全局变量 ==========
+        let currentStep = 0; // 当前步骤
+        let completedSteps = []; // 已完成的步骤
+        let conversationStarted = false; // 对话是否开始
+
+        // ========== 初始化 ==========
+        
+        // 页面加载时初始化
+        window.onload = function() {
+            loadProgress(); // 加载保存的进度
+            showWelcomeMessage(); // 显示欢迎消息
+            
+            // 回车发送消息
+            document.getElementById('userInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        };
+
+        // ========== 核心功能函数 ==========
+
+        // 显示欢迎消息
+        function showWelcomeMessage() {
+            setTimeout(() => {
+                addBotMessage("您好！欢迎加入公司 🎉");
+            }, 500);
+            
+            setTimeout(() => {
+                addBotMessage("我是您的入职指引助手，将帮助您完成上海地区的入职流程。");
+            }, 1500);
+            
+            setTimeout(() => {
+                if (completedSteps.length > 0) {
+                    addBotMessage(`检测到您已完成 ${completedSteps.length}/${onboardingSteps.length} 个步骤。`);
+                    setTimeout(() => {
+                        showMainMenu();
+                    }, 1000);
+                } else {
+                    addBotMessage("让我们开始吧！请选择您需要的服务：");
+                    setTimeout(() => {
+                        showMainMenu();
+                    }, 1000);
+                }
+            }, 2500);
+        }
+
+        // 显示主菜单
+        function showMainMenu() {
+            const options = [
+                { text: "📋 开始入职流程", action: "start" }
+            ];
+            
+            addOptionsMessage(options);
+        }
+
+        // 开始入职流程
+        function startOnboarding() {
+            addUserMessage("开始入职流程");
+            
+            setTimeout(() => {
+                addBotMessage(`好的！入职流程共有 ${onboardingSteps.length} 个步骤，我会逐步为您介绍。`);
+            }, 500);
+            
+            setTimeout(() => {
+                showNextStep();
+            }, 1500);
+        }
+
+        // 显示下一个步骤
+        function showNextStep() {
+            // 找到第一个未完成的步骤
+            let nextStepIndex = onboardingSteps.findIndex(step => !completedSteps.includes(step.id));
+            
+            if (nextStepIndex === -1) {
+                // 所有步骤已完成
+                clearStepCards();
+                addBotMessage("🎉 恭喜！您已完成所有入职步骤！");
+                setTimeout(() => {
+                    addBotMessage("如果还有其他问题，随时可以问我。");
+                    setTimeout(showMainMenu, 1000);
+                }, 1000);
+                return;
+            }
+            
+            currentStep = nextStepIndex;
+            const step = onboardingSteps[currentStep];
+            
+            setTimeout(() => {
+                addStepCard(step);
+            }, 500);
+        }
+
+        // 添加步骤卡片
+        function addStepCard(step) {
+            const chatArea = document.getElementById('chatArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            
+            const isCompleted = completedSteps.includes(step.id);
+            
+            messageDiv.innerHTML = `
+                <div class="message-content" style="max-width: 90%;">
+                    <div class="step-card">
+                        <div class="step-header">
+                            <span class="step-title">${step.title}</span>
+                            <span class="step-number">${step.id}</span>
+                        </div>
+                        <div class="step-content">${step.content}</div>
+                        <button class="check-button ${isCompleted ? 'completed' : ''}" 
+                                onclick="markStepComplete(${step.id})"
+                                ${isCompleted ? 'disabled' : ''}>
+                            ${isCompleted ? '✓ 已完成' : '标记为完成'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            chatArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 标记步骤完成
+        function markStepComplete(stepId) {
+            if (!completedSteps.includes(stepId)) {
+                completedSteps.push(stepId);
+                saveProgress(); // 保存进度到本地存储
+                updateProgress(); // 更新进度条
+                
+                // 更新按钮状态
+                event.target.textContent = '✓ 已完成';
+                event.target.classList.add('completed');
+                event.target.disabled = true;
+                
+                // 显示完成提示
+                setTimeout(() => {
+                    addBotMessage("很好！已标记为完成 ✓");
+                }, 300);
+                
+                // 自动显示下一步
+                setTimeout(() => {
+                    if (completedSteps.length === onboardingSteps.length) {
+                        // 所有步骤已完成
+                        clearStepCards();
+                        addBotMessage("🎉 恭喜！您已完成所有入职步骤！");
+                        setTimeout(() => {
+                            addBotMessage("如果还有其他问题，随时可以问我。");
+                            setTimeout(showMainMenu, 1000);
+                        }, 1000);
+                    } else {
+                        // 继续下一步
+                        addBotMessage("让我们继续下一步...");
+                        setTimeout(showNextStep, 1000);
+                    }
+                }, 1000);
+            }
+        }
+
+        // 完成当前步骤并继续
+        function completeAndNext(stepId) {
+            markStepComplete(stepId);
+            
+            setTimeout(() => {
+                if (completedSteps.length === onboardingSteps.length) {
+                    addBotMessage("🎉 恭喜！您已完成所有入职步骤！");
+                    setTimeout(showMainMenu, 1500);
+                } else {
+                    addBotMessage("让我们继续下一步...");
+                    setTimeout(showNextStep, 1000);
+                }
+            }, 1000);
+        }
+
+        // 查看所有步骤
+        function viewAllSteps() {
+            addUserMessage("查看所有步骤");
+            
+            setTimeout(() => {
+                addBotMessage("这是完整的入职流程清单：");
+            }, 500);
+            
+            onboardingSteps.forEach((step, index) => {
+                setTimeout(() => {
+                    addStepCard(step);
+                }, 1000 + index * 800);
+            });
+            
+            setTimeout(() => {
+                showMainMenu();
+            }, 1000 + onboardingSteps.length * 800 + 500);
+        }
+
+        // 查看特定步骤
+        function viewSpecificStep() {
+            addUserMessage("查看特定步骤");
+            
+            setTimeout(() => {
+                addBotMessage("请选择您想查看的步骤：");
+            }, 500);
+            
+            setTimeout(() => {
+                const stepOptions = onboardingSteps.map(step => ({
+                    text: `${step.id}. ${step.title}`,
+                    action: `showStep:${step.id}`
+                }));
+                stepOptions.push({ text: "🏠 返回主菜单", action: "menu" });
+                addOptionsMessage(stepOptions);
+            }, 1000);
+        }
+
+        // 显示指定步骤
+        function showStep(stepId) {
+            const step = onboardingSteps.find(s => s.id === stepId);
+            if (step) {
+                addUserMessage(step.title);
+                setTimeout(() => {
+                    addStepCard(step);
+                }, 500);
+                
+                setTimeout(() => {
+                    showMainMenu();
+                }, 1500);
+            }
+        }
+
+        // 查看进度
+        function viewProgress() {
+            addUserMessage("查看我的进度");
+            
+            const progress = Math.round((completedSteps.length / onboardingSteps.length) * 100);
+            
+            setTimeout(() => {
+                addBotMessage(`📊 您的入职进度：${completedSteps.length}/${onboardingSteps.length} (${progress}%)`);
+            }, 500);
+            
+            setTimeout(() => {
+                if (completedSteps.length === 0) {
+                    addBotMessage("您还没有开始入职流程，让我们开始吧！");
+                } else if (completedSteps.length === onboardingSteps.length) {
+                    addBotMessage("🎉 太棒了！您已完成所有步骤！");
+                } else {
+                    addBotMessage(`还有 ${onboardingSteps.length - completedSteps.length} 个步骤待完成。`);
+                }
+            }, 1500);
+            
+            setTimeout(showMainMenu, 2500);
+        }
+
+        // 重置进度
+        function resetProgress() {
+            addUserMessage("重置进度");
+            
+            setTimeout(() => {
+                addBotMessage("确定要重置所有进度吗？");
+            }, 500);
+            
+            setTimeout(() => {
+                const confirmOptions = [
+                    { text: "✓ 确认重置", action: "confirmReset" },
+                    { text: "✗ 取消", action: "menu" }
+                ];
+                addOptionsMessage(confirmOptions);
+            }, 1000);
+        }
+
+        // 确认重置
+        function confirmReset() {
+            completedSteps = [];
+            saveProgress();
+            updateProgress();
+            
+            addUserMessage("确认重置");
+            
+            setTimeout(() => {
+                addBotMessage("进度已重置！让我们重新开始吧。");
+            }, 500);
+            
+            setTimeout(showMainMenu, 1500);
+        }
+
+        // ========== 消息显示函数 ==========
+
+        // 添加机器人消息
+        function addBotMessage(text) {
+            const chatArea = document.getElementById('chatArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+            chatArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 添加用户消息
+        function addUserMessage(text) {
+            const chatArea = document.getElementById('chatArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+            chatArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 添加选项按钮
+        function addOptionsMessage(options) {
+            const chatArea = document.getElementById('chatArea');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            
+            let optionsHTML = '<div class="message-content" style="max-width: 90%;"><div class="options">';
+            options.forEach(option => {
+                optionsHTML += `<button class="option-button" onclick="handleOption('${option.action}')">${option.text}</button>`;
+            });
+            optionsHTML += '</div></div>';
+            
+            messageDiv.innerHTML = optionsHTML;
+            chatArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        // 清空已展示的步骤卡片（仅移除卡片型消息，保留普通对话）
+        function clearStepCards() {
+            const chatArea = document.getElementById('chatArea');
+            const cards = chatArea.querySelectorAll('.step-card');
+            cards.forEach(card => {
+                const messageWrapper = card.closest('.message');
+                if (messageWrapper) {
+                    messageWrapper.remove();
+                } else {
+                    card.remove();
+                }
+            });
+        }
+
+        // 处理选项点击
+        function handleOption(action) {
+            if (action === 'start') {
+                startOnboarding();
+            } else if (action === 'viewAll') {
+                viewAllSteps();
+            } else if (action === 'viewSpecific') {
+                viewSpecificStep();
+            } else if (action === 'viewProgress') {
+                viewProgress();
+            } else if (action === 'reset') {
+                resetProgress();
+            } else if (action === 'menu') {
+                addUserMessage("返回主菜单");
+                setTimeout(showMainMenu, 500);
+            } else if (action === 'skipToNext') {
+                addUserMessage("跳过，查看下一步");
+                setTimeout(showNextStep, 500);
+            } else if (action.startsWith('completeAndNext:')) {
+                const stepId = parseInt(action.split(':')[1]);
+                addUserMessage("完成并继续下一步");
+                completeAndNext(stepId);
+            } else if (action.startsWith('showStep:')) {
+                const stepId = parseInt(action.split(':')[1]);
+                showStep(stepId);
+            } else if (action === 'confirmReset') {
+                confirmReset();
+            }
+        }
+
+        // 发送用户输入的消息
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            
+            if (text === '') return;
+            
+            addUserMessage(text);
+            input.value = '';
+            
+            // 简单的关键词匹配
+            setTimeout(() => {
+                handleUserInput(text);
+            }, 500);
+        }
+
+        // 处理用户输入
+        function handleUserInput(text) {
+            const lowerText = text.toLowerCase();
+            
+            if (lowerText.includes('开始') || lowerText.includes('流程')) {
+                startOnboarding();
+            } else if (lowerText.includes('查看') && lowerText.includes('所有')) {
+                viewAllSteps();
+            } else if (lowerText.includes('进度')) {
+                viewProgress();
+            } else if (lowerText.includes('重置')) {
+                resetProgress();
+            } else if (lowerText.includes('菜单') || lowerText.includes('帮助')) {
+                addBotMessage("好的，这是主菜单：");
+                setTimeout(showMainMenu, 500);
+            } else {
+                // 尝试匹配步骤关键词
+                let foundStep = false;
+                for (let step of onboardingSteps) {
+                    if (lowerText.includes(step.title.toLowerCase().substring(0, 3))) {
+                        showStep(step.id);
+                        foundStep = true;
+                        break;
+                    }
+                }
+                
+                if (!foundStep) {
+                    addBotMessage("抱歉，我不太明白。您可以：");
+                    setTimeout(showMainMenu, 500);
+                }
+            }
+        }
+
+        // ========== 进度管理函数 ==========
+
+        // 更新进度条
+        function updateProgress() {
+            const progressFill = document.getElementById('progressFill');
+            const progress = (completedSteps.length / onboardingSteps.length) * 100;
+            progressFill.style.width = progress + '%';
+        }
+
+        // 保存进度到本地存储
+        function saveProgress() {
+            localStorage.setItem('onboardingProgress', JSON.stringify(completedSteps));
+            console.log('进度已保存:', completedSteps);
+        }
+
+        // 从本地存储加载进度
+        function loadProgress() {
+            const saved = localStorage.getItem('onboardingProgress');
+            if (saved) {
+                completedSteps = JSON.parse(saved);
+                updateProgress();
+                console.log('进度已加载:', completedSteps);
+            }
+        }
+
+        // 滚动到底部
+        function scrollToBottom() {
+            const chatArea = document.getElementById('chatArea');
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    </script>
+</body>
+</html>

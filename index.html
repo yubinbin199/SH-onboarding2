@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正在跳转...</title>
+    <!-- 说明：这是项目的首页入口，会自动跳转到主页面 -->
+    <meta http-equiv="refresh" content="0; url=onboarding-chatbot.html">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤖</text></svg>">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Microsoft YaHei", sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <h2>🤖 上海地区入职指引</h2>
+        <p>正在跳转到入职指引页面...</p>
+        <p>若未自动跳转，请<a href="onboarding-chatbot.html">点击这里</a>。</p>
+    </div>
+    <script>
+        // JS 兜底跳转（某些环境可能不支持 meta refresh）
+        setTimeout(function(){ 
+            window.location.href = 'onboarding-chatbot.html'; 
+        }, 100);
+    </script>
+</body>
+</html>
+
