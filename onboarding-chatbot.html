@@ -41,6 +41,7 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
 
         .header h1 {
@@ -51,6 +52,30 @@
         .header p {
             font-size: 14px;
             opacity: 0.9;
+        }
+
+        /* 回到登录页按钮 */
+        .back-to-login-btn {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-to-login-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-50%) scale(1.05);
         }
 
         /* 进度条 */
@@ -639,6 +664,10 @@
     <div class="container">
         <!-- 头部 -->
         <div class="header">
+            <button class="back-to-login-btn" onclick="backToLogin()">
+                <span>←</span>
+                <span>回到登录页</span>
+            </button>
             <h1>🤖 CTW智能入职指引</h1>
             <p>AI助手带您完成入职流程</p>
             <div class="progress-bar">
@@ -870,6 +899,22 @@
                 loginBtn.innerHTML = originalHTML;
                 loginBtn.disabled = false;
             }, 1000);
+        }
+
+        // 回到登录页
+        function backToLogin() {
+            // 确认是否要退出
+            if (confirm('确定要回到登录页吗？\n当前的入职进度将会保存。')) {
+                // 清除登录状态
+                isLoggedIn = false;
+                localStorage.setItem('isLoggedIn', 'false');
+                
+                // 清空聊天区域
+                document.getElementById('chatArea').innerHTML = '';
+                
+                // 显示登录页面
+                showLoginPage();
+            }
         }
 
         // ========== 核心功能函数 ==========
