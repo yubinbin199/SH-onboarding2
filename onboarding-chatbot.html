@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>上海地区入职指引 - 智能助手</title>
+    <title>CTW智能入职指引（AI版）</title>
     <!-- 内置 favicon，避免 /favicon.ico 404 -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🤖</text></svg>">
     <style>
@@ -329,8 +329,8 @@
     <div class="container">
         <!-- 头部 -->
         <div class="header">
-            <h1>🤖 上海地区入职指引助手</h1>
-            <p>让我帮助您完成入职流程</p>
+            <h1>🤖 CTW智能入职指引</h1>
+            <p>AI助手带您完成入职流程</p>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
             </div>
@@ -351,124 +351,110 @@
     <script>
         // ========== 数据结构 ==========
         
-        // 入职步骤数据（根据图片中的内容整理）
+        // 入职步骤数据（CTW智能入职指引 AI版 - 最新版本）
         const onboardingSteps = [
             {
                 id: 1,
-                title: "电脑工牌领取，并机密码与网络",
-                content: `📋 电脑开机初始密码：ctw123123
-
-🌐 公司网络（含VPN）：
-   Name: CTW SH
-   PW: Bac0nYasa1
-
-💡 重要提示：请妥善保管您的密码，不要分享给他人。`
-            },
-            {
-                id: 2,
-                title: "Passkey绑定",
-                content: `🔐 Passkey绑定步骤：
-   1. 打开某面ID系统（内部dR系统）
-   2. 进入passkey绑定流程
-   3. 输入邮箱、G123ID、邮箱验证码
-
-📌 Passkey说明：🔒 passkey绑定`
-            },
-            {
-                id: 3,
-                title: "P卡统资料填写",
-                content: `📝 需要填写的资料：
-   • 现场身份证
+                title: "P系统资料填写",
+                content: `📝 填写以下个人信息：
+   • 手机号码
+   • 身份证号
    • 开户行
    • 银行卡号
    • 首次工作时间
-   • 社账服号
+   • 社保账号
    • 公积金账号
+   • 婚姻状态等
 
-⚠️ 请准备好以上信息后进行填写。`
+📎 填写入口（钉钉表单）：
+<a href="https://alidocs.dingtalk.com/notable/share/form/v01J9LnW6jmE5pZWlvD_dv19yqvsgs3oebp3pcjys_1qX0QQ0" target="_blank">点击填写</a>
+
+⚠️ 请如实填写所有信息。`
+            },
+            {
+                id: 2,
+                title: "A系统（任务管理）",
+                content: `⚙️ A系统用于任务与计时管理
+
+🔗 系统地址：<a href="https://a.g123.jp" target="_blank">https://a.g123.jp</a>
+
+📋 请确保可正常登录
+
+👥 获取权限：
+   • <strong>美术职位</strong>：请联系负责PM或Leader领取卡
+   • <strong>非美术职位</strong>：可自行创建或向Leader申请卡`
+            },
+            {
+                id: 3,
+                title: "W系统（内部文档）",
+                content: `📚 W系统用于查看内部文档资料
+
+🔗 系统地址：<a href="https://w.g123.jp" target="_blank">https://w.g123.jp</a>
+
+🔐 不同部门有对应访问权限：
+   • Tech（技术）
+   • Creative（创意）
+   • Operation（运营）
+   • Management（管理）
+
+💡 请根据您的部门申请相应权限。`
             },
             {
                 id: 4,
-                title: "A系统（任务管理系统）",
-                content: `📊 A系统说明：
-   • 任务管理系统
-   • 工作期间所有任务都在该系统记录
-   • 请保持可登录状态
+                title: "E系统（仅限美术职位）",
+                content: `🎨 E系统用于美术素材制作、管理与监修
 
-🔑 A系统介绍S里卡：
-   • 区分美术和非美术
-   • 美术：请找负责PM或leader获取卡
-   • 非美术：可自行创建或leader要卡`
+🔗 系统地址：<a href="https://e.g123.jp" target="_blank">https://e.g123.jp</a>
+
+⚠️ 注意：<strong>仅限美术职位使用</strong>
+
+💡 非美术职位可跳过此步骤。`
             },
             {
                 id: 5,
-                title: "W（浏览文档系统）",
-                content: `📚 W系统（浏览文档系统）：
-   链接：https://w.g123.jp/
+                title: "钉钉入组",
+                content: `💬 请通过以下链接加入团队钉钉群组
 
-📂 文档需要根据不同部门开通不同权限：
-   • tech —— Tech
-   • creative- Creative
-   • operation- Operation
-   • managment-
+🔗 加入链接：
+<a href="https://wx-in-i.dingtalk.com/invite-page/weixin.html?bizSource=____source____&corpId=ding0387e489e42436f835c2f4657eb6378f&inviteCode=UtCFfSk576JzW4h&dtaction=os" target="_blank">点击加入</a>
 
-💡 根据您的部门申请相应权限。`
+⚠️ <strong>名称格式要求：中文-拼音</strong>
+   示例：王小明-Wang Xiaoming
+
+💡 请确保您的钉钉昵称符合格式要求。`
             },
             {
                 id: 6,
-                title: "钉钉进组",
-                content: `💬 钉钉进组步骤：
-   1. 负责hr会邀请你进入群组
-   2. 请同意进入
-   3. 名字格式：中文-拼音
+                title: "点餐系统",
+                content: `🍱 点餐系统使用指南
 
-🔗 邀请链接：
-https://wx-in-i.dingtalk.com/invite
-page/weixin.html?
-bizSource=____source____&corpId=ding0387e489e42436f835c2f4657eb6378
-f&inviteCode=UtCHSk576JzW4h&dtaction=os
+📱 <strong>步骤1：</strong>请将手机号提供给 <strong>行政-杨智尧</strong>，完成注册
 
-📱 QQ0：请提前准备好QQ号。`
+📱 <strong>步骤2：</strong>微信搜索"<strong>易点吃</strong>"公众号
+
+📱 <strong>步骤3：</strong>点击"<strong>开始点餐</strong>"
+
+🔑 登录信息：
+   • 账号名：<strong>手机号</strong>
+   • 初始密码：<strong>yidianc66688</strong>
+
+💡 入职当天的饭请在茶水间拿备餐
+
+⚠️ 首次登录后请及时修改密码。`
             },
             {
                 id: 7,
-                title: "员工基本信息收集",
-                content: `📋 信息收集表单：
-https://alidocs.dingtalk.com/notable/share/form/v01J9LnW6jnE5pZWlvD_dv19yqvsgs3oeb
-p3pcjys_1qX0
+                title: "完成入职",
+                content: `🎉 <strong>恭喜！您已完成全部入职流程！</strong>
 
-📝 请如实填写您的基本信息。`
-            },
-            {
-                id: 8,
-                title: "点餐系统",
-                content: `🍱 点餐系统使用指南：
+📩 劳动合同将通过 <strong>腾讯电子签</strong> 发送
+   • 请留意短信通知
+   • 请于当天完成签署
 
-步骤：
-1. 微信搜索：*显点餐*公众
-2. 点击*开始点餐*
-3. 输入餐号码，登录后就可以开始预餐
+📘 员工手册：
+<a href="https://w.g123.jp/doc/ws4iua1t13lkzjlt6xmiyvlhow-QCYVwSBAUZ" target="_blank">点击查看员工手册（W系统）</a>
 
-⚠️ 重要信息：
-   • 姓名：个人手机号
-   • 初始密码：yidanc66688
-
-💡 首次登录后请及时修改密码。`
-            },
-            {
-                id: 9,
-                title: "员工手册、入职资料和电子劳动合同签署",
-                content: `📄 最后步骤 - 文件签署：
-
-1️⃣ 请将入职材料打包发送至 HR 邮箱
-
-2️⃣ 员工手册获取地址：
-https://w.g123.jp/doc/ws4iua1t13lkzjjt6xmiyihow-QCYVwSBAUZ
-
-3️⃣ 劳动合同以邮件形式完成
-   请注意查收邮件并完成电子签名
-
-✅ 完成后您的入职流程就全部完成了！`
+✅ 欢迎正式加入团队！`
             }
         ];
 
@@ -501,7 +487,7 @@ https://w.g123.jp/doc/ws4iua1t13lkzjjt6xmiyihow-QCYVwSBAUZ
             }, 500);
             
             setTimeout(() => {
-                addBotMessage("我是您的入职指引助手，将帮助您完成上海地区的入职流程。");
+                addBotMessage("我是您的AI入职助手，将帮助您完成CTW的入职流程。");
             }, 1500);
             
             setTimeout(() => {
