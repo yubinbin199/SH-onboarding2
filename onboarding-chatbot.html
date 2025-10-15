@@ -323,9 +323,305 @@
         .chat-area::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+
+        /* 登录页面样式 */
+        .login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 16px;
+            padding: 60px 80px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .login-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .login-title {
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .login-subtitle {
+            color: #9ca3af;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-button.primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .login-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-button.secondary {
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .login-button.secondary:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .login-footer {
+            color: #6b7280;
+            font-size: 14px;
+            margin-top: 30px;
+        }
+
+        /* Passkey绑定页面样式 */
+        .bind-passkey-page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            z-index: 10000;
+            display: none;
+            overflow-y: auto;
+            padding: 40px 20px;
+        }
+
+        .bind-passkey-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .bind-passkey-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .bind-passkey-title {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .bind-passkey-subtitle {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-input::placeholder {
+            color: #6b7280;
+        }
+
+        .instructions-box {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .instructions-title {
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .instructions-content {
+            color: #d1d5db;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .instructions-content ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .instructions-content li {
+            margin: 8px 0;
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .form-button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-button.submit {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .form-button.submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        .form-button.cancel {
+            background: transparent;
+            color: #9ca3af;
+            border: 1px solid #3a3a3a;
+        }
+
+        .form-button.cancel:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
+    <!-- 登录页面 -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <div class="login-icon">🔍</div>
+            <h1 class="login-title">Welcome to Xiao Bao</h1>
+            <p class="login-subtitle">Sign in with your passkey to continue</p>
+            
+            <button class="login-button primary" onclick="signInWithPasskey()">
+                <span>➜</span>
+                <span>Sign in with Passkey</span>
+            </button>
+            
+            <button class="login-button secondary" onclick="showBindPasskeyPage()">
+                绑定passkey
+            </button>
+            
+            <p class="login-footer">After signing in, click "Open Xiao Bao" in your<br>browser to return</p>
+        </div>
+    </div>
+
+    <!-- Passkey绑定页面 -->
+    <div class="bind-passkey-page" id="bindPasskeyPage">
+        <div class="bind-passkey-container">
+            <div class="bind-passkey-header">
+                <h2 class="bind-passkey-title">🔐 绑定Passkey</h2>
+                <p class="bind-passkey-subtitle">请填写以下信息完成Passkey绑定</p>
+            </div>
+
+            <form id="bindPasskeyForm" onsubmit="submitBindPasskey(event)">
+                <div class="form-group">
+                    <label class="form-label">邮箱地址 *</label>
+                    <input type="email" class="form-input" id="emailInput" placeholder="请输入您的公司邮箱" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">G123 ID *</label>
+                    <input type="text" class="form-input" id="g123idInput" placeholder="请输入您的G123 ID" required>
+                </div>
+
+                <div class="instructions-box">
+                    <div class="instructions-title">
+                        <span>ℹ️</span>
+                        <span>Passkey绑定说明</span>
+                    </div>
+                    <div class="instructions-content">
+                        <ol>
+                            <li>请确保您已经收到公司邮箱和G123 ID</li>
+                            <li>填写正确的邮箱地址，系统会发送验证码</li>
+                            <li>输入G123 ID用于账号关联</li>
+                            <li>提交后，系统会自动完成Passkey绑定</li>
+                            <li>绑定成功后，您可以使用Passkey快速登录</li>
+                        </ol>
+                        <p style="margin-top: 15px; color: #fbbf24;">
+                            ⚠️ 如遇问题，请联系IT部门寻求帮助
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="button" class="form-button cancel" onclick="cancelBindPasskey()">取消</button>
+                    <button type="submit" class="form-button submit">提交绑定</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div class="container">
         <!-- 头部 -->
         <div class="header">
@@ -454,13 +750,24 @@
         let currentStep = 0; // 当前步骤
         let completedSteps = []; // 已完成的步骤
         let conversationStarted = false; // 对话是否开始
+        let isLoggedIn = false; // 是否已登录
 
         // ========== 初始化 ==========
         
         // 页面加载时初始化
         window.onload = function() {
             loadProgress(); // 加载保存的进度
-            showWelcomeMessage(); // 显示欢迎消息
+            
+            // 检查是否已登录
+            const loginStatus = localStorage.getItem('isLoggedIn');
+            if (loginStatus === 'true') {
+                // 已登录，隐藏登录页面，显示欢迎消息
+                hideLoginPage();
+                showWelcomeMessage();
+            } else {
+                // 未登录，显示登录页面
+                showLoginPage();
+            }
             
             // 回车发送消息
             document.getElementById('userInput').addEventListener('keypress', function(e) {
@@ -469,6 +776,87 @@
                 }
             });
         };
+
+        // ========== 登录相关函数 ==========
+
+        // 显示登录页面
+        function showLoginPage() {
+            document.getElementById('loginOverlay').style.display = 'flex';
+        }
+
+        // 隐藏登录页面
+        function hideLoginPage() {
+            document.getElementById('loginOverlay').style.display = 'none';
+        }
+
+        // 显示Passkey绑定页面
+        function showBindPasskeyPage() {
+            document.getElementById('bindPasskeyPage').style.display = 'block';
+        }
+
+        // 取消Passkey绑定
+        function cancelBindPasskey() {
+            document.getElementById('bindPasskeyPage').style.display = 'none';
+            document.getElementById('bindPasskeyForm').reset();
+        }
+
+        // 提交Passkey绑定
+        function submitBindPasskey(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const g123id = document.getElementById('g123idInput').value;
+            
+            // 显示绑定中的提示
+            const submitBtn = event.target.querySelector('.form-button.submit');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = '绑定中...';
+            submitBtn.disabled = true;
+            
+            // 模拟绑定过程（实际应用中这里会调用后端API）
+            setTimeout(() => {
+                // 保存绑定信息到本地存储（仅用于演示）
+                localStorage.setItem('passkeyEmail', email);
+                localStorage.setItem('passkeyG123ID', g123id);
+                
+                // 显示成功提示
+                alert('✅ Passkey绑定成功！\n\n邮箱：' + email + '\nG123 ID：' + g123id + '\n\n现在您可以使用Passkey登录了。');
+                
+                // 重置表单
+                document.getElementById('bindPasskeyForm').reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+                // 返回登录页面
+                cancelBindPasskey();
+            }, 1500);
+        }
+
+        // 使用Passkey登录
+        function signInWithPasskey() {
+            // 显示登录中的提示
+            const loginBtn = event.target.closest('.login-button');
+            const originalHTML = loginBtn.innerHTML;
+            loginBtn.innerHTML = '<span>🔄</span><span>登录中...</span>';
+            loginBtn.disabled = true;
+            
+            // 模拟登录过程（实际应用中这里会调用Passkey认证API）
+            setTimeout(() => {
+                // 标记为已登录
+                isLoggedIn = true;
+                localStorage.setItem('isLoggedIn', 'true');
+                
+                // 隐藏登录页面
+                hideLoginPage();
+                
+                // 显示欢迎消息并开始入职流程
+                showWelcomeMessage();
+                
+                // 恢复按钮状态
+                loginBtn.innerHTML = originalHTML;
+                loginBtn.disabled = false;
+            }, 1000);
+        }
 
         // ========== 核心功能函数 ==========
 
